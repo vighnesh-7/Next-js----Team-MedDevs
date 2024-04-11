@@ -35,6 +35,7 @@ Get Started
 Ready to experience the future of healthcare? Visit MedDevs and start your journey towards better health and well-being today!
 
 
+![image](https://github.com/vighnesh-7/Next-js_Team_MedDevs/assets/156537424/6e930740-878b-447d-99be-982708df00ea)
 
 
 
