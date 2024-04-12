@@ -1,4 +1,4 @@
-                                                            MedDevs
+# MedDevs
 
 Welcome to MedDevs!
 
@@ -6,13 +6,29 @@ Welcome to MedDevs!
 Whether you're a patient seeking remote healthcare services or a healthcare provider looking to streamline your practice, our platform offers a comprehensive solution tailored to your needs.
 
 
-Introduction
+## Introduction
 MedDevs is an online platform designed to facilitate remote healthcare services, providing a seamless experience for patients, healthcare providers, caregivers, and health organizations. 
 Our goal is to enhance communication, accessibility, and efficiency in healthcare delivery, ultimately improving health outcomes and well-being for all.
 
+## Getting Started
+Ready to experience the future of healthcare? Visit MedDevs and start your journey towards better health and well-being today!
 
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/vighnesh-7/Next-js_Team_MedDevs.git
+   
+2. Navigate to the project directory:
+    cd Next-js_Team_MedDevs
 
-How to Use
+3. Install dependencies:
+    npm install
+
+4. Start the development server:
+    npm run dev
+
+5. Access the application at http://localhost:3000.
+
+## How to Use
 
 To get started with MedDevs, follow these simple steps:
 
@@ -31,8 +47,6 @@ schedule appointments, and communicate securely from the comfort of your home.
 healthcare causes and initiatives.
 
 
-Get Started
-Ready to experience the future of healthcare? Visit MedDevs and start your journey towards better health and well-being today!
 
 
 ![image](https://github.com/vighnesh-7/Next-js_Team_MedDevs/assets/156537424/6e930740-878b-447d-99be-982708df00ea)
