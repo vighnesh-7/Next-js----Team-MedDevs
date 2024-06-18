@@ -1,23 +1,25 @@
-
-import UserDashboard from "@/components/UserDashboard";
-
+import UserDashboard from '../../../components/UserDashboard'
 import { currentUser } from '@clerk/nextjs';
+
+
 
 const Profile = async () => {
     const user = await currentUser();
 
-
+    
     const userInfo = {
-        name: `${user.firstName} ${user.lastName}`,
+        username: user?.username,
         firstName:user.firstName,
         lastName:user.lastName,
-        imageUrl: user.imageUrl,
-        // lastSignInAt: user.lastSignInAt,
-        email: user.emailAddresses[0].emailAddress,
-        phoneNumber:user.phoneNumbers[0].phoneNumber,
+        image: user?.imageUrl,
+        email: user.emailAddresses[0]?.emailAddress,
+        phoneNumber:user?.phoneNumbers[0]?.phoneNumber,
+        passwordEnabled: user?.passwordEnabled,
+        banned: user?.banned,
+        emailVerified: user?.emailAddresses[0]?.verification.status,
+        phoneNumberVerified: user?.phoneNumbers[0]?.verification.status,
         };
 
-        // console.log(user);
 
     return ( 
         <div style={{ display: "flex", justifyContent: "space-between", padding: 50 }}  >
