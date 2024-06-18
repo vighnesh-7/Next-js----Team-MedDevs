@@ -1,28 +1,51 @@
 'use client'
 
+import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
  function UserDashboard({myuser}) {
+
+   
+   const handleCreateUser = async ()=>{
+     try{
+       const response = await axios.post('/api/user/create',{myuser})
+       
+       if(response.data.message === 'Success')
+        {
+           setUser(response.data.payload);
+          toast.success("User created Successfully")
+        }
+      }
+      catch(e){
+        console.log(e.message);
+      }
+    }
+
+    
+    useEffect(()=>{
+      handleCreateUser();
+    },[])
+  
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [isEditing, setIsEditing] = useState(false);
   
   const [user, setUser] = useState({
-    username: myuser?.name,
+    username: myuser.username,
     firstName: myuser.firstName,
     lastName: myuser.lastName,
-    phoneNumber : myuser?.phoneNumber,
+    phoneNumber : myuser.phoneNumber,
     email:myuser?.email,
-    diagnosis: "",
+    diagnosis: '',
     email: myuser.email,
     doctorName: ""
   });
-
-  const [profilePic, setProfilePic] = useState(myuser.imageUrl);
+  const [profilePic, setProfilePic] = useState(myuser?.image);
 
   const inputRef = useRef(null);
 
-  const handleEdit = (e) => {
+  const handleEdit =  (e) => {
     e.preventDefault();
     setIsEditing(true);
   };
@@ -48,14 +71,27 @@ import { useForm } from 'react-hook-form';
     inputRef.current.click();
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
-    setIsEditing(false);
-    setUser(data);
+  const onSubmit = async (data) => {
+    console.log(data,"onsubmit throwned");
+    return 
+    try{
+      const response = await axios.post('/api/user/edit',{data})
+      
+      console.log("response data : ",response);
+      if(response.data.message === 'Success')
+       {
+          setUser(response.data.payload);
+          toast.success("User details updated successfully")
+       }
+     }
+     catch(e){
+       toast.error("User details updation failed")
+     }finally{
+       setIsEditing(false);
+      }
   };
 
 
-  
   
   return (
     
@@ -71,33 +107,33 @@ import { useForm } from 'react-hook-form';
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block">Username:</label>
-              <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user.username} {...register("username")} disabled={!isEditing} />
+              <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user?.username} {...register("username")} disabled={!isEditing} />
             </div>
             <div className='flex mb-4'>
               <div className="w-1/2 mr-2">
                 <label className="block">First Name:</label>
-                <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user.firstName} {...register("firstName")} disabled={!isEditing} />
+                <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user?.firstName} {...register("firstName")} disabled={!isEditing} />
               </div>
               <div className="w-1/2">
                 <label className="block">Last Name:</label>
-                <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user.lastName} {...register("lastName")} disabled={!isEditing} />
+                <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user?.lastName} {...register("lastName")} disabled={!isEditing} />
               </div>
             </div>
             <div className="mb-4">
               <label className="block">Diagnosis:</label>
-              <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user.diagnosis} {...register("diagnosis")} disabled={!isEditing} />
+              <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user?.diagnosis} {...register("diagnosis")} disabled={!isEditing} />
             </div>
             <div className="mb-4">
               <label className="block">Email Address:</label>
-              <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user.email} {...register("phno")} disabled={!isEditing} />
+              <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user?.email} {...register("email")} disabled={!isEditing} />
             </div>
             <div className="mb-4">
               <label className="block">Phone Number:</label>
-              <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user.phoneNumber} {...register("phno")} disabled={!isEditing} />
+              <input type="text" className="form-input  py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user?.phoneNumber} {...register("phoneNumber")} disabled={!isEditing} />
             </div>
             <div className="mb-4">
               <label className="block">Doctor Name:</label>
-              <input type="text" className="form-input py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user.doctorName} {...register("doctorName")} disabled={!isEditing} />
+              <input type="text" className="form-input py-2 ps-3 bg-stone-100 rounded-xl mt-1 block w-full" defaultValue={user?.doctorName} {...register("doctorName")} disabled={!isEditing} />
             </div>
             <div>
               {isEditing ? (
